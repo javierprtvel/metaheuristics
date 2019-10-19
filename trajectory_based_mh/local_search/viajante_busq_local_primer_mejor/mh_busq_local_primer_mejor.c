@@ -14,38 +14,27 @@ void inicializa_permutaciones() {
     int i = 0, j = 0;
 
     p = (unsigned char **)calloc(n_ciudades - 2, sizeof(unsigned char*));
-    //printf("Permutaciones:\n");
     for(; i < n_ciudades - 2; i++) {
         p[i] = (unsigned char *)calloc(i + 1, sizeof(unsigned char));
-        //printf("[ ");
         for(j = 0; j < i + 1; j++) {
             p[i][j] = (unsigned char) 0; //cero
-            //printf("%u ", p[i][j]);
          }
-        //printf("]\n");
     }
-    //printf("\n");
 }
 
 void reinicia_permutaciones() {
     int i = 0, j = 0;
 
-    //printf("Permutaciones reiniciadas\n");
     for(; i < n_ciudades - 2; i++) {
-        //printf("[ ");
         for(j = 0; j < i + 1; j++) {
             p[i][j] = (unsigned char) 0; //cero
-            //printf("%u ", p[i][j]);
         }
-        //printf("]\n");
     }
-    //printf("\n");
 }
 
 void elimina_permutaciones() {
 
     if(p != NULL) {
-        //printf("Liberando matriz de permutaciones...\n");
         int i = 0;
         for(; i < n_ciudades - 2; i++) {
             if(p[i] != NULL) {
@@ -55,7 +44,6 @@ void elimina_permutaciones() {
         }
         free(p);
         p = NULL;
-        //printf("\n");
     }
 
 }
@@ -104,13 +92,13 @@ void genera_vecino() {
         i = j;
         j = tmp;
     }
-    //printf("Permutación (%u, %u)\n", i, j);
+
 
     int i_inicial = i, j_inicial = j;
     while(p[i][j] && quedan_vecinos) { //permutacion ya generada
         j = (j + 1) % (i + 1);
         i = (j == 0)? (i + 1) % (n_ciudades - 2) : i;
-        //printf("Permutación (%u, %u)\n", i, j);
+
 
         if(i == i_inicial && j == j_inicial) { //se volvio al principio, se ha generado todo el entorno
             quedan_vecinos = (unsigned char) 0;
@@ -224,13 +212,6 @@ void genera_solucion_inicial_archivo() {
             }
         }
     }
-    /*
-    printf("Solución inicial: ");
-    for(i = 0; i < n_ciudades - 2; i++) {
-        printf("%u-", sol_act[i]);
-    }
-    printf("%u\n\n", sol_act[i]);
-    */
 }
 
 void genera_vecino_archivo() {
@@ -239,10 +220,10 @@ void genera_vecino_archivo() {
     double r = 0.0;
 
     fscanf(archivo_busqueda, "%lf\r\n", &r);
-    //printf("%lf\n", r);
+
     i = floor(r * (n_ciudades - 1));
     fscanf(archivo_busqueda, "%lf\r\n", &r);
-    //printf("%lf\n", r);
+
     j = floor(r * (n_ciudades - 1));
 
     if(i < j) {
@@ -254,18 +235,15 @@ void genera_vecino_archivo() {
     while(i == j) {
         i = (i + 1) % (n_ciudades - 1);
         j = (i == 0)? 0 : (j + 1) % i;
-        //i = (j == 0)? (i + 1) % (n_ciudades - 1): i;
     }
     i--; //la matriz de permutaciones no tiene diagonal
 
 
     //permutacion sobre la solucion actual
-    //printf("Permutación (%u, %u)\n", i, j);
     int i_inicial = i, j_inicial = j;
     while(p[i][j] && quedan_vecinos) { //permutacion ya generada
         j = (j + 1) % (i + 1);
         i = (j == 0)? (i + 1) % (n_ciudades - 2) : i;
-        //printf("Permutación (%u, %u)\n", i, j);
 
         if(i == i_inicial && j == j_inicial) { //se volvio al principio, se ha generado todo el entorno
             quedan_vecinos = (unsigned char) 0;
@@ -335,20 +313,10 @@ unsigned int busq_local_archivo(char* traza) { //devuelve la solucion alcanzada,
                         mejor_vecino[i] = s_prima[i];
                     }
                     solucion = objetivo(mejor_vecino);
-                    /*
-                    printf("Primer mejor vecino encontrado. Distancia: %u\n", solucion);
-                    printf("Recorrido óptimo: ");
-                    for(j = 0; j < n_ciudades - 2; j++) {
-                        printf("%u-", mejor_vecino[j]);
-                    }
-                    printf("%u\n\n", mejor_vecino[j]);
-                    */
+
                     reinicia_permutaciones();
                     quedan_vecinos = (unsigned char) 1;
                     n_vecino = 0;
-                }
-                else {
-                    //printf("Generado todo el entorno sin éxito\n");
                 }
             } while(objetivo(mejor_vecino) < objetivo(sol_act));
             solucion = objetivo(sol_act);

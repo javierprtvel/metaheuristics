@@ -59,7 +59,6 @@ void genera_solucion_voraz(SOLUCION genotipo) {
     genotipo[0] = 1 + (int)(floor(drand48() * (n_ciudades - 1))) % (n_ciudades - 1);
     for(i = 1; i < n_ciudades - 1; i++) {
         ciudad_origen = genotipo[i - 1];
-        //printf("Ciudad origen: %u\n", ciudad_origen);
 
         //no se tienen en cuenta alelos ya asignados (ciudades ya incluidas en el recorrido)
         ciudad_dist_min = 0;
@@ -73,7 +72,6 @@ void genera_solucion_voraz(SOLUCION genotipo) {
                 }
             }
         } while(repetido);
-        //printf("Ciudad dist_min: %u\n", ciudad_dist_min);
         dist_min = (ciudad_origen > ciudad_dist_min)? d[ciudad_origen - 1][ciudad_dist_min]
             : d[ciudad_dist_min - 1][ciudad_origen];
         genotipo[i] = ciudad_dist_min;
@@ -91,7 +89,6 @@ void genera_solucion_voraz(SOLUCION genotipo) {
                     }
                 }
             } while(repetido);
-            //printf("Ciudad dist_min: %u\n", ciudad_dist_min);
 
             if(ciudad_origen > ciudad_dist_min && d[ciudad_origen - 1][ciudad_dist_min] < dist_min) {
                 genotipo[i] = ciudad_dist_min;
@@ -104,7 +101,6 @@ void genera_solucion_voraz(SOLUCION genotipo) {
 
             j++;
         }
-        //printf("Ciudad escogida: %u\n", genotipo[i]);
     }
 }
 
@@ -229,8 +225,6 @@ void cruce(int ind_1, int ind_2, int ite) {
             pto_2 = tmp;
         }
         n_area_corte = pto_2 - pto_1 + 1;
-        //printf("\t\tAREA CRUCE: %d\n", n_area_corte);
-        //printf("\t\tPOSICIONES RESTANTES: %d\n", (n_ciudades - 1) - (pto_2 - pto_1 + 1));
 
         memcpy(h1 + pto_1, p1 + pto_1, n_area_corte * sizeof(unsigned int));
         memcpy(h2 + pto_1, p2 + pto_1, n_area_corte * sizeof(unsigned int));
@@ -349,16 +343,6 @@ void reemplazo() {
                 if(poblacion_inicial.genotipos[j] == mejores[k]) { //mismo individuo
                     rep = 1;
                 }
-                /*
-                else if(mejores[k] != NULL) {
-                    l = 0;
-                    while(l < n_ciudades - 1 && poblacion_inicial.genotipos[j][l] == mejores[k][l]) {
-                        //printf("INDIVIDUO INICIAL: %d, POSICION %d ; INDIVIDUO ELITE: %d, POSICION %d\n", j, l, k, l);
-                        l++;
-                    }
-                    rep = (l == n_ciudades - 1)? 1 : 0; //diferente individuo, mismo genotipo
-                }
-                */
             }
         } while(rep);
         mejor = poblacion_inicial.genotipos[j];
@@ -373,16 +357,6 @@ void reemplazo() {
                 if(aux == mejores[k]) {
                     rep = 1;
                 }
-                /*
-                else if(mejores[k] != NULL) {
-                    l = 0;
-                    while(l < n_ciudades - 1 && aux[l] == mejores[k][l]) {
-                        //printf("INDIVIDUO INICIAL: %d, POSICION %d ; INDIVIDUO ELITE: %d, POSICION %d\n", j, l, k, l);
-                        l++;
-                    }
-                    rep = (l == n_ciudades - 1)? 1 : 0; //diferente individuo, mismo genotipo
-                }
-                */
             }
             if(!rep && fitness_aux < fitness_mejor) {
                 mejor = aux;
@@ -393,17 +367,6 @@ void reemplazo() {
             mejores[N_ELITISMO - 1 - i] = mejor;
         }
     }
-    /*
-    printf("MEJORES (ELITISMO):\n");
-    for(i = 0; i < N_ELITISMO; i++) {
-        printf("INDIVIDUO %d: {FUNCION OBJETIVO (km): %u, RECORRIDO: ", i, objetivo(mejores[i]));
-        for(j = 0; j < n_ciudades - 1; j++) {
-            printf("%u ", mejores[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    */
 
     //asignar los mejores en las primeras posiciones de la poblacion inicial de la siguiente iteracion
     for(i = 0; i < N_ELITISMO; i++) {
@@ -548,7 +511,6 @@ void genera_solucion_voraz_arch(SOLUCION genotipo) {
     genotipo[0] = 1 + floor(r * (n_ciudades - 1));
     for(i = 1; i < n_ciudades - 1; i++) {
         ciudad_origen = genotipo[i - 1];
-        //printf("Ciudad origen: %u\n", ciudad_origen);
 
         //no se tienen en cuenta alelos ya asignados (ciudades ya incluidas en el recorrido)
         ciudad_dist_min = ciudad_origen;
@@ -562,7 +524,6 @@ void genera_solucion_voraz_arch(SOLUCION genotipo) {
                 }
             }
         } while(repetido);
-        //printf("Ciudad dist_min: %u\n", ciudad_dist_min);
         dist_min = (ciudad_origen > ciudad_dist_min)? d[ciudad_origen - 1][ciudad_dist_min]
             : d[ciudad_dist_min - 1][ciudad_origen];
         genotipo[i] = ciudad_dist_min;
@@ -580,7 +541,6 @@ void genera_solucion_voraz_arch(SOLUCION genotipo) {
                     }
                 }
             } while(repetido);
-            //printf("Ciudad dist_min: %u\n", ciudad_dist_min);
 
             if(ciudad_origen > ciudad_dist_min && d[ciudad_origen - 1][ciudad_dist_min] < dist_min) {
                 genotipo[i] = ciudad_dist_min;
@@ -593,7 +553,6 @@ void genera_solucion_voraz_arch(SOLUCION genotipo) {
 
             j++;
         }
-        //printf("Ciudad escogida: %u\n", genotipo[i]);
     }
 }
 
@@ -701,8 +660,6 @@ void cruce_arch(int ind_1, int ind_2, int ite) {
             pto_2 = tmp;
         }
         n_area_corte = pto_2 - pto_1 + 1;
-        //printf("\t\tAREA CRUCE: %d\n", n_area_corte);
-        //printf("\t\tPOSICIONES RESTANTES: %d\n", (n_ciudades - 1) - (pto_2 - pto_1 + 1));
 
         memcpy(h1 + pto_1, p1 + pto_1, n_area_corte * sizeof(unsigned int));
         memcpy(h2 + pto_1, p2 + pto_1, n_area_corte * sizeof(unsigned int));

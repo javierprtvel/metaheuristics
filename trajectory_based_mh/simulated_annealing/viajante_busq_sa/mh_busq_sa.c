@@ -43,45 +43,6 @@ void genera_solucion_inicial() {
         }
     }
 }
-/*
-void genera_vecino() {
-    int i, j;
-    unsigned int tmp;
-
-    //permutacion sobre la solucion actual
-    i = siguiente_vecino_i, j = siguiente_vecino_j;
-    if(siguiente_vecino_i == n_ciudades - 2) {
-        quedan_vecinos = (unsigned char) 0;
-    }
-
-    if(quedan_vecinos) {
-        intercambio.nueva_pos_i = i + 1;
-        intercambio.nueva_pos_j = j;
-
-        if(!es_tabu(lt, intercambio)) {
-            //asignacion del nuevo vecino a s_prima
-            int k = 0;
-            for(; k < n_ciudades - 1; k++) {
-                s_prima[k] = sol_act[k];
-            }
-            tmp = s_prima[i + 1];
-            s_prima[i + 1] = s_prima[j];
-            s_prima[j] = tmp;
-
-            c_vecino = objetivo(s_prima);
-        }
-        else {
-            c_vecino = 0;
-        }
-        //prueba de aspiracion?
-
-        p[i][j] = (unsigned char) 1;
-        //printf("Permutación (%u, %u)\n", siguiente_vecino_i, siguiente_vecino_j);
-        siguiente_vecino_j = (j + 1) % (i + 1);
-        siguiente_vecino_i = (siguiente_vecino_j == 0)? i + 1 : i;
-    }ite_sin_mejora = 0,
-}
-*/
 
 void insercion(int indice_ciudad, int indice_insercion) {
     int i, j;
@@ -112,17 +73,6 @@ void insercion(int indice_ciudad, int indice_insercion) {
             s_prima[i] = sol_act[i];
         }
     }
-
-    /*
-    printf("\tINDICE INSERCION: %u\n", indice_insercion);
-    printf("\tValor posicion insercion: %u\n", s_prima[indice_insercion]);
-    printf("\tValor posicion ciudad: %u\n", s_prima[indice_ciudad]);
-    printf("\tRECORRIDO:");
-    for(i = 0; i < n_ciudades - 1; i++) {
-        printf(" %u", s_prima[i]);
-    }
-    printf("\n");
-    */
 
     c_vecino = objetivo(s_prima);
 }

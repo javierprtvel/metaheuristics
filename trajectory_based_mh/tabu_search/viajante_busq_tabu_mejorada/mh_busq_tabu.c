@@ -25,38 +25,27 @@ void inicializa_permutaciones() {
     int i = 0, j = 0;
 
     p = (unsigned char **)calloc(n_ciudades - 2, sizeof(unsigned char*));
-    //printf("Permutaciones:\n");
     for(; i < n_ciudades - 2; i++) {
         p[i] = (unsigned char *)calloc(i + 1, sizeof(unsigned char));
-        //printf("[ ");
         for(j = 0; j < i + 1; j++) {
             p[i][j] = (unsigned char) 0; //cero
-            //printf("%u ", p[i][j]);
          }
-        //printf("]\n");
     }
-    //printf("\n");
 }
 
 void reinicia_permutaciones() {
     int i = 0, j = 0;
 
-    //printf("Permutaciones reiniciadas\n");
     for(; i < n_ciudades - 2; i++) {
-        //printf("[ ");
         for(j = 0; j < i + 1; j++) {
             p[i][j] = (unsigned char) 0; //cero
-            //printf("%u ", p[i][j]);
         }
-        //printf("]\n");
     }
-    //printf("\n");
 }
 
 void elimina_permutaciones() {
 
     if(p != NULL) {
-        //printf("Liberando matriz de permutaciones...\n");
         int i = 0;
         for(; i < n_ciudades - 2; i++) {
             if(p[i] != NULL) {
@@ -136,17 +125,6 @@ void insercion(int indice_ciudad, int indice_insercion) {
         }
     }
 
-    /*
-    printf("\tINDICE INSERCION: %u\n", indice_insercion);
-    printf("\tValor posicion insercion: %u\n", s_prima[indice_insercion]);
-    printf("\tValor posicion ciudad: %u\n", s_prima[indice_ciudad]);
-    printf("\tRECORRIDO:");
-    for(i = 0; i < n_ciudades - 1; i++) {
-        printf(" %u", s_prima[i]);
-    }
-    printf("\n");
-    */
-
     c_vecino = objetivo(s_prima);
 }
 
@@ -163,7 +141,6 @@ void genera_vecino() {
     }
 
     p[i][j] = (unsigned char) 1;
-    //printf("Permutación (%u, %u)\n", siguiente_vecino_i, siguiente_vecino_j);
     siguiente_vecino_j = (j + 1) % (i + 1);
     siguiente_vecino_i = (siguiente_vecino_j == 0)? i + 1 : i;
 }
@@ -173,7 +150,6 @@ void genera_vecino() {
 unsigned int busq_tabu() { //devuelve la solucion alcanzada, o 0 en caso de error
     unsigned int c_solucion = 0;
 
-    
     unsigned int indice_ciudad = -1;
     unsigned int indice_insercion = -1, indice_mejor_ins = -1;
     p = NULL;
@@ -250,13 +226,11 @@ unsigned int busq_tabu() { //devuelve la solucion alcanzada, o 0 en caso de erro
             insertar_tabu(lt, insercion_mejor_vecino);
 
             if(c_mejor_vecino < c_solucion) { //el mejor vecino es optimo "global"
-                //printf("El mejor vecino es mejor que la solucion optima actual!\n");
                 for(i = 0; i < n_ciudades - 1; i++) {
                     solucion[i] = mejor_vecino[i];
                 }
                 c_solucion = objetivo(solucion);
                 ite_solucion = j;
-                //printf("Distancia: %u\n", c_solucion);
 
                 ite_sin_mejora = 0;
             }
@@ -278,7 +252,6 @@ unsigned int busq_tabu() { //devuelve la solucion alcanzada, o 0 en caso de erro
                 printf("\n***************\nREINICIO: %u\n***************\n", reinicios);
             }
 
-            //reinicia_permutaciones();
             quedan_vecinos = (unsigned char) 1;
             siguiente_vecino_i = 0;
             siguiente_vecino_j = 0;
@@ -417,13 +390,11 @@ unsigned int busq_tabu_archivo(char* traza) { //devuelve la solucion alcanzada, 
 
 
                 if(c_mejor_vecino < c_solucion) { //el mejor vecino es optimo "global"
-                    //printf("El mejor vecino es mejor que la solucion optima actual!\n");
                     for(i = 0; i < n_ciudades - 1; i++) {
                         solucion[i] = mejor_vecino[i];
                     }
                     c_solucion = objetivo(solucion);
                     ite_solucion = j;
-                    //printf("Distancia: %u\n", c_solucion);
 
                     ite_sin_mejora = 0;
                 }

@@ -14,7 +14,6 @@ int main(int argc, char** argv) {
             printf("Error en búsqueda tabú desde archivo: no se pudieron cargar los datos del problema correctamente.\n");
             exit(1);
         }
-
         resultado = busq_tabu_archivo(argv[2]);
     }
     else if(argc == 4 && strncmp(argv[1], "-a", strlen("-a")) == 0) {
@@ -23,7 +22,6 @@ int main(int argc, char** argv) {
             printf("Error en búsqueda tabú aleatoria: no se pudieron cargar los datos del problema correctamente.\n");
             exit(1);
         }
-
         resultado = busq_tabu();
     }
     else {
@@ -35,17 +33,6 @@ int main(int argc, char** argv) {
 
     if(!resultado) {
         printf("Error al aplicar la metaheurística. No se pudo calcular la solución.\n\n");
-    }
-    else {
-        /*
-        printf("Distancia óptima: %u\n", resultado);
-        printf("Recorrido óptimo: ");
-        int i = 0;
-        for(; i < n_ciudades - 2; i++) {
-            printf("%u-", solucion[i]);
-        }
-        printf("%u\n\n", solucion[i]);
-        */
     }
 
     elimina_datos();
