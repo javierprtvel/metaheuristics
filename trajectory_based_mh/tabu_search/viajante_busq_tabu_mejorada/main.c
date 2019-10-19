@@ -4,15 +4,12 @@
 #include "mh_busq_tabu.h"
 #include "problema_viajante.h"
 
-#define N_POR_DEFECTO 100
-
-
 int main(int argc, char** argv) {
     unsigned int resultado;
     int inicio;
 
-    if(argc >= 3) {
-        inicio = inicializa_datos(N_POR_DEFECTO, argv[1]);
+    if(argc >= 5 && strncmp(argv[1], "-f", strlen("-f")) == 0) {
+        inicio = inicializa_datos(atoi(argv[3]), argv[4]);
         if(!inicio) {
             printf("Error en búsqueda tabú desde archivo: no se pudieron cargar los datos del problema correctamente.\n");
             exit(1);
@@ -20,8 +17,8 @@ int main(int argc, char** argv) {
 
         resultado = busq_tabu_archivo(argv[2]);
     }
-    else if(argc == 2) {
-        inicio = inicializa_datos(N_POR_DEFECTO, argv[1]);
+    else if(argc == 4 && strncmp(argv[1], "-a", strlen("-a")) == 0) {
+        inicio = inicializa_datos(atoi(argv[2]), argv[3]);
         if(!inicio) {
             printf("Error en búsqueda tabú aleatoria: no se pudieron cargar los datos del problema correctamente.\n");
             exit(1);
@@ -31,11 +28,10 @@ int main(int argc, char** argv) {
     }
     else {
         printf("Error: parámetros no especificados correctamente.\n");
-        printf("Formato para búsqueda tabú aleatoria: %s archivo_distancias\n", argv[0]);
-        printf("Formato para búsqueda tabú desde archivo: %s archivo_distancias archivo_aleatorios\n", argv[0]);
+        printf("Formato para búsqueda tabú aleatoria: %s -a [n ciudades] [archivo de distancias]\n", argv[0]);
+        printf("Formato para búsqueda tabú desde archivo: %s -f [archivo de aleatorios] [n ciudades] [archivo de distancias]\n", argv[0]);
         exit(1);
     }
-
 
     if(!resultado) {
         printf("Error al aplicar la metaheurística. No se pudo calcular la solución.\n\n");
