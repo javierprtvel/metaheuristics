@@ -167,6 +167,12 @@ unsigned int busq_local_aleatoria() { //devuelve la solucion alcanzada, o 0 en c
             }
         } while(objetivo(mejor_vecino) < objetivo(sol_act));
         solucion = objetivo(sol_act);
+        printf("\nMEJOR SOLUCION: \n");
+        printf("RECORRIDO: ");
+        for(i = 0; i < n_ciudades - 1; i++) {
+            printf("%u ", sol_act[i]);
+        }
+        printf("\nFUNCION OBJETIVO (km): %u\n", solucion);
     }
 
     if(mejor_vecino != NULL) {
@@ -288,7 +294,7 @@ unsigned int busq_local_archivo(char* traza) { //devuelve la solucion alcanzada,
         mejor_vecino = (unsigned int *)calloc(n_ciudades - 1, sizeof(unsigned int));
         s_prima = (unsigned int *)calloc(n_ciudades - 1, sizeof(unsigned int));
         if(p != NULL && mejor_vecino != NULL && s_prima != NULL) {
-            int i = 0, j = 0;
+            int i = 0;
 
             for(; i < n_ciudades - 1; i++) { //inicialmente, el primer mejor es la solucion actual
                 mejor_vecino[i] = sol_act[i];
@@ -320,6 +326,13 @@ unsigned int busq_local_archivo(char* traza) { //devuelve la solucion alcanzada,
                 }
             } while(objetivo(mejor_vecino) < objetivo(sol_act));
             solucion = objetivo(sol_act);
+
+            printf("\nMEJOR SOLUCION: \n");
+            printf("RECORRIDO: ");
+            for(i = 0; i < n_ciudades - 1; i++) {
+                printf("%u ", mejor_vecino[i]);
+            }
+            printf("\nFUNCION OBJETIVO (km): %u\n", solucion);
         }
 
         if(mejor_vecino != NULL) {

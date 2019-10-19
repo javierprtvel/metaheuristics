@@ -330,7 +330,7 @@ void reemplazo() {
     */
     SOLUCION mejor = NULL, aux = NULL;
     unsigned int fitness_mejor = 0, fitness_aux;
-    int i = 0, j = 0, k = 0, l = 0;
+    int i = 0, j = 0, k = 0;
     int rep = 0;
     memset(mejores, 0, N_ELITISMO * sizeof(SOLUCION));
     for(i = 0; i < N_ELITISMO; i++) {
