@@ -1,11 +1,11 @@
 GCC = gcc -Wall
 
-MAIN = viajante_busq_local_primer_mejor.out
+MAIN = a.out
 
-DEPS = problema_viajante.h mh_busq_local_primer_mejor.h
+DEPS = tsp.h mh_tabu_search.h tabu_list.h
 
 INCLUDES = -I $(DEPS)
-SOURCES = main.c problema_viajante.c mh_busq_local_primer_mejor.c
+SOURCES = main.c tsp.c mh_tabu_search.c tabu_list.c
 
 OBJECTS = $(SOURCES: .c = .o)
 

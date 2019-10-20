@@ -2,10 +2,10 @@ GCC = gcc -Wall
 
 MAIN = a.out
 
-DEPS = problema_viajante.h mh_busq_sa.h
+DEPS = tsp.h mh_simulated_annealing.h
 
 INCLUDES = -I $(DEPS)
-SOURCES = main.c problema_viajante.c mh_busq_sa.c
+SOURCES = main.c tsp.c mh_simulated_annealing.c
 
 OBJECTS = $(SOURCES: .c = .o)
 
